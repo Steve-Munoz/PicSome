@@ -9,14 +9,9 @@ import App from './App';
 ReactDOM.render(
   <ContextProvider>
     <Router>
-    <App />
-
-  </Router>
-
+      <App />
+    </Router>
   </ContextProvider>
-  
-  
-    
   ,
   document.getElementById('root')
 );
