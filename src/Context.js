@@ -46,7 +46,7 @@ function ContextProvider({children}){
     // this is why I am passing my toggleFavorite function through my Provider and in Image.js component 
     // I can use Context to actually grab that value
     return(
-    <Context.Provider value = {{allPhotos, toggleFavorite}, addToCart}>{children}</Context.Provider>
+    <Context.Provider value = {{allPhotos, toggleFavorite, addToCart, cartItems}}>{children}</Context.Provider>
     )
 }
 export {ContextProvider, Context, }

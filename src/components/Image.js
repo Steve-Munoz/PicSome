@@ -4,7 +4,7 @@ import {Context} from "../Context"
 
 function Image({className, img}){
     const [hovered, setHovered] = useState(false)
-    const {toggleFavorite, addToCart} = useContext(Context);
+    const {toggleFavorite, addToCart, cartItems} = useContext(Context);
     {/* ↓ what is happenening below with && is that if hovered is true 
     then render <i> if its false then it wont render anything*/}
     //↓ OnClick event listener is receiving the event as a parameter not the id therefore I put an
@@ -18,14 +18,29 @@ function Image({className, img}){
             return <i className="ri-heart-line favorite" onClick={() => toggleFavorite(img.id)}></i>
         }
     }
-    const cartIcon = hovered && <i className="ri-add-circle-line cart" onClick={()=> addToCart(img)}></i>
+    function cartIcon(){
+        const alreadyInCart = cartItems.some(item=> item.id == img.id)
+        if(alreadyInCart){
+            return <i className="ri-shopping-cart-fill cart"></i>
+        }
+
+        else if (hovered){
+            return <i className="ri-add-circle-line cart" onClick={() => addToCart(img)}></i>
+        }
+        //display filled shopping cart if the item is already in the cart
+     // return <i className="ri-shopping-cart-fill cart"></i>
+     // else if the image is being hovered
+     // return <i className="ri-add-circle-line cart" onClick={() => addT
+    }
+
+    
     return(
         <div className = {`${className} image-container`}
         onMouseEnter={()=> setHovered(true)}
         onMouseLeave={()=> setHovered(false)}>
             <img src={img.url} className = "image-grid"/>
-            {heartIcon}
-            {cartIcon}
+            {heartIcon()}
+            {cartIcon()}
 
         </div>
     )
