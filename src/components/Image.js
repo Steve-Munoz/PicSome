@@ -1,10 +1,16 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import PropTypes from "prop-types"
+import {Context} from "../Context"
 
 function Image({className, img}){
     const [hovered, setHovered] = useState(false)
+    const {toggleFavorite} = useContext(Context);
     {/* ↓ what is happenening below with && is that if hovered is true 
     then render <i> if its false then it wont render anything*/}
-    const heartIcon = hovered && <i className="ri-heart-line favorite"></i>
+    //↓ OnClick event listener is receiving the event as a parameter not the id therefore I put an
+    //anynomous function and that anynomous function will call toggleFavorite is going to receive this
+    //images.id property. The img is coming from props and is an object that has an id property
+    const heartIcon = hovered && <i className="ri-heart-line favorite" onClick = {()=>toggleFavorite(img.id)}></i>
     const cartIcon = hovered && <i className="ri-add-circle-line cart"></i>
     return(
         <div className = {`${className} image-container`}
@@ -17,4 +23,14 @@ function Image({className, img}){
         </div>
     )
 }
+Image.propTypes ={
+    className: PropTypes.string,
+    img:PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        isFavorite: PropTypes.bool
+    })
+
+}
+
 export default Image
