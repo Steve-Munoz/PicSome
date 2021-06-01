@@ -4,7 +4,7 @@ import {Context} from "../Context"
 
 function Image({className, img}){
     const [hovered, setHovered] = useState(false)
-    const {toggleFavorite, addToCart, cartItems} = useContext(Context);
+    const {toggleFavorite, addToCart, cartItems, removeFromCart} = useContext(Context);
     {/* ↓ what is happenening below with && is that if hovered is true 
     then render <i> if its false then it wont render anything*/}
     //↓ OnClick event listener is receiving the event as a parameter not the id therefore I put an
@@ -21,7 +21,7 @@ function Image({className, img}){
     function cartIcon(){
         const alreadyInCart = cartItems.some(item=> item.id == img.id)
         if(alreadyInCart){
-            return <i className="ri-shopping-cart-fill cart"></i>
+            return <i className="ri-shopping-cart-fill cart" onClick={() => removeFromCart(img.id)}></i>
         }
 
         else if (hovered){
