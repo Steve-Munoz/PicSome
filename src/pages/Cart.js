@@ -28,9 +28,10 @@ function Cart() {
             {cartItemElements}
             <p className="total-cost">Total:{totalCostDisplay} </p>
             <div className="order-button">
-                <button onClick ={()=>placeOrder()}>
+                {cartItems.length > 0 ? <button onClick ={()=>placeOrder()}>
                     {buttonText}
-                </button>
+                </button> : <h3>Make sure to add items to your cart!</h3>}
+                
             </div>
         </main>
     )
