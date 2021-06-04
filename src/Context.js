@@ -3,6 +3,7 @@ const Context= React.createContext()
 
 function ContextProvider({children}){
     const [allPhotos, setAllPhotos]= useState([])
+    const [cartItems, setCartItems] = useState([])
 
     const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
 
@@ -34,6 +35,15 @@ function ContextProvider({children}){
         setAllPhotos(updatedArr)
     }
 
+    function addToCart(newItem){
+       setCartItems(prevItems => [...prevItems, newItem])
+    }
+
+    function removeFromCart(id){
+        setCartItems(prevItems => prevItems.filter(item => item.id !== id))
+
+    }
+
 
 
     //↓Anything that we want to get from Context to our components will happen through the value property
@@ -41,7 +51,7 @@ function ContextProvider({children}){
     // this is why I am passing my toggleFavorite function through my Provider and in Image.js component 
     // I can use Context to actually grab that value
     return(
-    <Context.Provider value = {{allPhotos, toggleFavorite}}>{children}</Context.Provider>
+    <Context.Provider value = {{allPhotos, toggleFavorite,cartItems, addToCart, removeFromCart}}>{children}</Context.Provider>
     )
 }
 export {ContextProvider, Context, }
